@@ -3,765 +3,310 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHAOS MODE | No Braincells Required</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GUESS ME 👀</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
-:root {
-  --bg: #090912;
-  --panel: #141421;
-  --pink: #ff4fd8;
-  --blue: #6c7bff;
-  --lime: #c9ff69;
-  --text: #f8f7ff;
-  --muted: #9998b5;
-  --border: rgba(255,255,255,.1);
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;padding:20px 13px;
+ display:flex;justify-content:center;align-items:center;
+ background:radial-gradient(circle at top left,#54216f,transparent 45%),
+ radial-gradient(circle at bottom right,#173e73,transparent 45%),#100d1b;
+ color:white;font-family:Arial,sans-serif
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: var(--text);
-  background:
-    radial-gradient(ellipse at 10% 5%, #39205a 0, transparent 35%),
-    radial-gradient(ellipse at 95% 75%, #171d4c 0, transparent 35%),
-    var(--bg);
-  font-family: 'DM Sans', sans-serif;
+.app{width:100%;max-width:540px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.logo{font-weight:1000;font-size:22px}.logo span{color:#ff67d4}
+.pill{font-size:11px;background:#ffffff12;padding:9px 11px;border-radius:20px;color:#ddd4ef}
+.hero{text-align:center;margin-bottom:23px}
+.hero h1{font-size:clamp(42px,10vw,65px);letter-spacing:-3px;line-height:.98;margin:12px 0}
+.hero h1 span{color:#ff67d4}
+.hero p{color:#c8bfd9;font-size:14px;line-height:1.7}
+.card{padding:24px 20px;background:#211b32ee;border:1px solid #ffffff20;border-radius:22px;box-shadow:0 20px 70px #0005}
+.tag{font-size:10px;letter-spacing:1.5px;color:#ff91df;font-weight:bold}
+h2{font-size:26px;line-height:1.2;margin:14px 0}
+p{line-height:1.65}
+.muted{font-size:13px;color:#bdb4d2}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.primary{
+ width:100%;border:0;border-radius:12px;padding:15px;
+ color:#1a1023;background:linear-gradient(100deg,#ff67d4,#a18bff);
+ font-weight:900;font-size:14px;margin-top:12px
 }
-button { font: inherit; cursor: pointer; }
-button:focus-visible { outline: 3px solid white; outline-offset: 4px; }
-
-.app {
-  width: min(100% - 32px, 850px);
-  margin: auto;
-  padding: 28px 0 45px;
+.secondary{
+ width:100%;border:1px solid #ffffff25;border-radius:12px;
+ padding:13px;color:white;background:#ffffff08;
+ font-weight:bold;margin-top:10px
 }
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 40px;
+input,textarea{
+ width:100%;border:1px solid #ffffff25;border-radius:11px;
+ padding:13px;color:white;background:#100d1b;margin:8px 0;
+ font-size:14px
 }
-.brand {
-  font: 700 18px 'Space Grotesk', sans-serif;
-  letter-spacing: 1.4px;
+textarea{min-height:105px;resize:vertical;line-height:1.5}
+.options{display:grid;gap:10px;margin-top:19px}
+.option{
+ width:100%;text-align:left;padding:15px;border-radius:12px;
+ color:white;background:#ffffff08;border:1px solid #ffffff20;
+ line-height:1.5;font-size:14px
 }
-.brand span { color: var(--pink); }
-.status {
-  color: var(--lime);
-  border: 1px solid #c9ff6940;
-  background: #c9ff6910;
-  border-radius: 99px;
-  padding: 8px 12px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-.hero { margin-bottom: 26px; }
-.eyebrow {
-  color: var(--pink);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-h1 {
-  font: 700 clamp(45px, 9vw, 78px)/.98 'Space Grotesk', sans-serif;
-  letter-spacing: -4px;
-  margin: 13px 0 18px;
-}
-h1 .outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--pink);
-}
-.subtitle {
-  max-width: 510px;
-  color: var(--muted);
-  line-height: 1.75;
-  font-size: 14px;
-}
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin: 26px 0;
-}
-.stat {
-  padding: 17px;
-  border: 1px solid var(--border);
-  background: #ffffff05;
-  border-radius: 17px;
-}
-.stat-label {
-  font-size: 10px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-}
-.stat-value {
-  font: 700 27px 'Space Grotesk', sans-serif;
-  margin-top: 7px;
-}
-.game-card {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #ffffff20;
-  background: linear-gradient(145deg, #1b1930, #10101d 65%);
-  border-radius: 26px;
-  padding: clamp(22px, 5vw, 38px);
-  box-shadow: 0 20px 70px #0005;
-}
-.game-card::before {
-  content: "";
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  right: -120px;
-  top: -120px;
-  background: var(--pink);
-  filter: blur(90px);
-  opacity: .25;
-  pointer-events: none;
-}
-.card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  position: relative;
-}
-.tag {
-  padding: 7px 11px;
-  background: #6c7bff20;
-  color: #aab2ff;
-  border: 1px solid #6c7bff50;
-  border-radius: 7px;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.3px;
-}
-.round {
-  font-size: 12px;
-  color: var(--muted);
-}
-.challenge-icon {
-  font-size: 45px;
-  margin: 27px 0 12px;
-  filter: drop-shadow(0 0 18px #ff4fd855);
-}
-h2 {
-  position: relative;
-  font: 700 clamp(27px, 5vw, 39px)/1.15 'Space Grotesk', sans-serif;
-  letter-spacing: -1.2px;
-  margin: 8px 0 15px;
-}
-.description {
-  position: relative;
-  color: #c4c2d9;
-  font-size: 15px;
-  line-height: 1.85;
-  white-space: pre-line;
-}
-.prompt {
-  position: relative;
-  margin-top: 22px;
-  border: 1px solid #ff4fd83d;
-  background: #ff4fd80a;
-  padding: 18px;
-  border-radius: 14px;
-  font-size: 14px;
-  line-height: 1.8;
-}
-.prompt strong {
-  display: block;
-  color: var(--pink);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1.8px;
-  margin-bottom: 6px;
-}
-.choices {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 18px;
-  position: relative;
-}
-.choice {
-  text-align: left;
-  color: var(--text);
-  background: #ffffff07;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 15px;
-  line-height: 1.6;
-  transition: .2s;
-}
-.choice:hover { border-color: var(--pink); background: #ff4fd811; }
-.choice.selected {
-  border-color: var(--lime);
-  background: #c9ff6915;
-}
-.choice:disabled { cursor: default; }
-.feedback {
-  display: none;
-  margin-top: 13px;
-  padding: 15px;
-  background: #c9ff6910;
-  border: 1px solid #c9ff6940;
-  border-radius: 12px;
-  color: var(--lime);
-  line-height: 1.6;
-  font-size: 13px;
-}
-.timer-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 22px;
-}
-.timer {
-  font: 700 25px 'Space Grotesk', sans-serif;
-  min-width: 60px;
-}
-.timer-track {
-  height: 5px;
-  background: #ffffff12;
-  border-radius: 10px;
-  flex: 1;
-  overflow: hidden;
-}
-.timer-fill {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, var(--pink), var(--blue));
-  transition: width .25s linear;
-}
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 25px;
-  position: relative;
-}
-.primary, .secondary {
-  border: 0;
-  border-radius: 12px;
-  padding: 15px 21px;
-  font-size: 13px;
-  font-weight: 800;
-  transition: transform .18s, opacity .18s;
-}
-.primary {
-  color: #100d1a;
-  background: linear-gradient(100deg, var(--pink), #bca3ff);
-  box-shadow: 0 5px 25px #ff4fd822;
-}
-.secondary {
-  color: var(--text);
-  border: 1px solid var(--border);
-  background: #ffffff08;
-}
-.primary:hover, .secondary:hover { transform: translateY(-2px); }
-.primary:disabled { opacity: .35; cursor: not-allowed; transform: none; }
-.hidden { display: none !important; }
-.progress-wrap { margin-top: 23px; }
-.progress-info {
-  display: flex;
-  justify-content: space-between;
-  color: var(--muted);
-  font-size: 11px;
-  margin-bottom: 10px;
-}
-.progress-track {
-  height: 4px;
-  background: #ffffff10;
-  border-radius: 20px;
-  overflow: hidden;
-}
-.progress-bar {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--pink), var(--blue));
-  transition: width .35s;
-}
-.section-title {
-  font: 700 18px 'Space Grotesk', sans-serif;
-  margin: 32px 0 13px;
-}
-.categories {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-.category {
-  background: #ffffff05;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 15px 10px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 11px;
-}
-.category span { display: block; font-size: 23px; margin-bottom: 8px; }
-.category.active { border-color: #ff4fd877; color: white; background: #ff4fd80b; }
-.footer {
-  margin-top: 28px;
-  color: #77758f;
-  text-align: center;
-  font-size: 11px;
-  line-height: 1.8;
-}
-#toast {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: calc(100% - 32px);
-  background: #24223a;
-  border: 1px solid #ffffff20;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-size: 12px;
-  box-shadow: 0 10px 35px #0006;
-  z-index: 10;
-}
-@media(max-width:500px) {
-  .app { width: calc(100% - 22px); padding-top: 20px; }
-  .topbar { margin-bottom: 32px; }
-  h1 { letter-spacing: -2.5px; }
-  .stats { gap: 7px; }
-  .stat { padding: 12px 10px; }
-  .stat-value { font-size: 23px; }
-  .game-card { border-radius: 20px; }
-  .choices { grid-template-columns: 1fr; }
-  .primary { flex: 1; }
-}
+.option:hover{border-color:#ff67d4;background:#ff67d412}
+.option.chosen{border-color:#ff67d4;background:#ff67d426}
+.row{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#c7bed9}
+.bar{height:5px;background:#ffffff12;border-radius:9px;margin:12px 0 22px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#ff67d4,#a18bff);transition:width .2s}
+.box{padding:15px;background:#ffffff08;border-radius:13px;margin:13px 0;line-height:1.7;font-size:14px;overflow-wrap:anywhere}
+.match{color:#aaffbc}.miss{color:#ffb3dc}
+.hidden{display:none!important}
+footer{text-align:center;color:#9188a7;font-size:11px;margin:19px 0;line-height:1.7}
+label{font-size:13px;color:#ddd4ef}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
 <main class="app">
-  <header class="topbar">
-    <div class="brand">CHAOS<span>MODE</span>®</div>
-    <div class="status">● SOLO MODE</div>
-  </header>
+<header>
+ <div class="logo">GUESS <span>ME 👀</span></div>
+ <div class="pill">2 people · 1 game</div>
+</header>
 
-  <section class="hero">
-    <div class="eyebrow">Your brain called. It's on leave.</div>
-    <h1>LESS THINKING.<br><span class="outline">MORE CHAOS.</span></h1>
-    <p class="subtitle">
-      Absurd scenarios. Questionable decisions. Unnecessary confidence.
-      A collection of challenges for people who are old enough to know better.
-    </p>
-  </section>
+<section class="hero">
+ <div class="tag">HOW WELL DO YOU KNOW ME?</div>
+ <h1>GUESS<br><span>MY ANSWER.</span></h1>
+ <p>Make your guesses. Reveal the truth.<br>Find out if you know each other at all 😂</p>
+</section>
 
-  <section class="stats">
-    <div class="stat">
-      <div class="stat-label">Total points</div>
-      <div class="stat-value" id="score">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Streak</div>
-      <div class="stat-value" id="streak">0 🔥</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Completed</div>
-      <div class="stat-value" id="completed">0</div>
-    </div>
-  </section>
+<section class="card" id="home">
+ <h2>Who's playing first?</h2>
+ <p class="muted">One person answers first. The other guesses their answers, then answers for themselves.</p>
+ <button class="primary" id="make">I'LL ANSWER FIRST 💅</button>
+ <button class="secondary" id="join">I'M GUESSING THEIR ANSWERS 👀</button>
+ <hr style="border:0;border-top:1px solid #ffffff18;margin:23px 0">
+ <h2 style="font-size:19px">Got their results code?</h2>
+ <p class="muted">Paste the code they sent back to see how they did.</p>
+ <textarea id="resultCode" placeholder="Paste the completed game code here"></textarea>
+ <button class="secondary" id="check">SHOW ME THE RESULTS →</button>
+ <div class="muted" id="homeError"></div>
+</section>
 
-  <section class="game-card">
-    <div class="card-top">
-      <span class="tag" id="tag">READY FOR NONSENSE</span>
-      <span class="round" id="round">ROUND 01</span>
-    </div>
+<section class="card hidden" id="setup">
+ <div class="tag">STEP 1 · YOUR TURN</div>
+ <h2>First, answer honestly.</h2>
+ <p class="muted">Choose what you really think. Your answers will be included in the code you share.</p>
+ <label>Your nickname</label>
+ <input id="ownerName" maxlength="24" placeholder="Your nickname">
+ <button class="primary" id="beginOwner">LET'S GO →</button>
+ <button class="secondary" id="back1">BACK</button>
+</section>
 
-    <div class="challenge-icon" id="challengeIcon">🫠</div>
-    <h2 id="title">A productive use of your questionable free time.</h2>
-    <div class="description" id="description">
-      You could be doing something useful. Instead, you're here.
-      Honestly? Excellent decision.
-    </div>
+<section class="card hidden" id="play">
+ <div class="row"><span id="phase">YOUR ANSWER</span><span id="counter">1 / 15</span></div>
+ <div class="bar"><div class="fill" id="fill"></div></div>
+ <div class="tag" id="category"></div>
+ <h2 id="question"></h2>
+ <p class="muted" id="instruction"></p>
+ <div class="options" id="options"></div>
+ <button class="primary" id="next" disabled>NEXT →</button>
+</section>
 
-    <div id="promptBox" class="prompt">
-      <strong>Your first mission</strong>
-      Hit the button below. Your dignity is between you and your screen.
-    </div>
+<section class="card hidden" id="share">
+ <div class="tag">STEP 2 · SEND IT</div>
+ <h2>Now send him the code 👀</h2>
+ <p class="muted">Copy this code and send it to him. He'll guess your answers before seeing them, then answer the questions himself.</p>
+ <textarea id="shareCode" readonly></textarea>
+ <button class="primary" id="copyShare">COPY CODE 📋</button>
+ <p class="muted">Tell him to open the same game link and tap “I'm guessing their answers”.</p>
+ <button class="secondary" id="homeAgain">HOME</button>
+</section>
 
-    <div id="choices" class="choices hidden"></div>
-    <div id="feedback" class="feedback"></div>
+<section class="card hidden" id="done">
+ <div class="tag">ALL DONE 🎉</div>
+ <h2>Send the results back!</h2>
+ <p class="muted">This code includes their guesses and their own answers. Ask them to send it to you, then paste it into the results box on the home screen.</p>
+ <textarea id="doneCode" readonly></textarea>
+ <button class="primary" id="copyDone">COPY RESULTS CODE 📋</button>
+ <button class="secondary" id="homeDone">HOME</button>
+</section>
 
-    <div id="timerArea" class="timer-area hidden">
-      <div class="timer" id="timer">15s</div>
-      <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
-    </div>
+<section class="card hidden" id="results">
+ <div class="tag">THE REVEAL 👀</div>
+ <h2 id="resultTitle">Your results</h2>
+ <div id="summary" class="box"></div>
+ <div id="details"></div>
+ <button class="primary" id="copySummary">COPY SUMMARY</button>
+ <button class="secondary" id="homeResults">PLAY AGAIN</button>
+</section>
 
-    <div class="actions">
-      <button class="primary" id="startBtn">LET THE NONSENSE BEGIN ↗</button>
-      <button class="primary hidden" id="completeBtn" disabled>CHALLENGE COMPLETE ✓</button>
-      <button class="secondary hidden" id="nextBtn">NEXT ROUND →</button>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-info">
-        <span>YOUR CURRENT RUN</span>
-        <span id="progressText">0 challenges completed</span>
-      </div>
-      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
-    </div>
-  </section>
-
-  <h3 class="section-title">Inside the chaos</h3>
-  <section class="categories">
-    <div class="category active"><span>🧠</span>Unhinged thoughts</div>
-    <div class="category"><span>🎭</span>Ridiculous missions</div>
-    <div class="category"><span>⚡</span>Quick decisions</div>
-    <div class="category"><span>🃏</span>Bluff & guess</div>
-    <div class="category"><span>💀</span>Dark-ish humour</div>
-    <div class="category"><span>🎯</span>Brain battles</div>
-  </section>
-
-  <footer class="footer">
-    NO CALLS. NO VOICE TASKS. NO SKIPPING.<br>
-    Just you, the chaos, and your questionable choices.
-  </footer>
+<footer>Just for fun. No mind-reading skills guaranteed. 😂</footer>
 </main>
 
-<div id="toast" class="hidden" role="status"></div>
-
 <script>
-const challenges = [
-  {
-    icon:"🧠", tag:"UNHINGED THOUGHTS", type:"Think",
-    title:"The world's worst superpower",
-    desc:"You get a superpower. There's just one tiny problem.",
-    prompt:"Choose your absolutely useless superpower.",
-    choices:[
-      ["🧊 Freeze time, but only while sneezing.","At least your allergies have a purpose."],
-      ["🧠 Read minds, but only during advertisements.","Finally, the truth about shampoo commercials."],
-      ["🕺 Teleport anywhere, but arrive doing a dramatic dance.","Your entrance will never be subtle."],
-      ["🔋 Charge your phone by staring at it.","Your screen time has finally become productive."]
-    ]
-  },
-  {
-    icon:"💀", tag:"QUESTIONABLE DECISIONS", type:"Think",
-    title:"Explain yourself. Immediately.",
-    desc:"You've been summoned to a completely unnecessary meeting.",
-    prompt:"You are 47 minutes late. Pick your excuse and defend it out loud or in your head.",
-    choices:[
-      ["The lift and I had unresolved issues.","HR would like a word."],
-      ["I was waiting for the right background music.","Main character syndrome confirmed."],
-      ["I thought this was an email.","Honestly, plausible."],
-      ["My future self said it was fine.","Blame time travel."]
-    ]
-  },
-  {
-    icon:"🎭", tag:"RIDICULOUS MISSION", type:"Mission",
-    title:"Sell the unsellable",
-    desc:"You're the world's most confident salesperson. Your product is completely ridiculous.",
-    prompt:"Pitch one of these products for 15 seconds. Be convincing. No one is buying, but that's not the point.",
-    choices:[
-      ["An umbrella that only works indoors.","Weather protection, emotionally speaking."],
-      ["A premium subscription to doing nothing.","Finally, passive income for your soul."],
-      ["A chair that judges your posture.","The most honest relationship you'll ever have."],
-      ["Air in a luxury glass bottle.","Limited edition oxygen. Very exclusive."]
-    ],
-    timer:15
-  },
-  {
-    icon:"⚡", tag:"QUICK DECISION", type:"Reflex",
-    title:"Choose your chaos",
-    desc:"No overthinking. Your first instinct is your official answer.",
-    prompt:"Which inconvenience would you rather endure for a full year?",
-    choices:[
-      ["Your phone autocorrects every name.","Your contacts will never recover."],
-      ["Every door requires a dramatic entrance.","Your commute becomes theatre."],
-      ["Every song gets stuck at the chorus.","The concert never ends."],
-      ["Your food arrives exactly 2 minutes cold.","A very specific tragedy."]
-    ]
-  },
-  {
-    icon:"🃏", tag:"BLUFF & GUESS", type:"Bluff",
-    title:"Spot the suspicious answer",
-    desc:"One of these statements is the odd one out. Think it through before revealing the answer.",
-    prompt:"Which statement is the odd one out?",
-    choices:[
-      ["Octopuses have three hearts.","This is a real biological fact."],
-      ["Bananas are berries botanically.","This is also a real fact."],
-      ["Goldfish have a memory of only 3 seconds.","This is the myth."],
-      ["Sharks existed before trees.","This is a real fact."]
-    ],
-    answer:2,
-    explain:"The goldfish three-second memory claim is a myth. Goldfish can learn and retain information much longer."
-  },
-  {
-    icon:"🤡", tag:"ABSURD LOGIC", type:"Brain battle",
-    title:"A truly terrible business idea",
-    desc:"The startup economy has seen worse. Probably.",
-    prompt:"Invent a business name for one of these services. Give it a ridiculous slogan, too.",
-    choices:[
-      ["A dating app for people who hate texting.","'Seen at 2:03 PM. Loved forever.'"],
-      ["A gym where every machine is slightly inconvenient.","'Results may vary. So will the equipment.'"],
-      ["A luxury hotel for houseplants.","'Finally, room to photosynthesise.'"],
-      ["A consultancy for people who procrastinate.","'We'll get back to you. Eventually.'"]
-    ],
-    timer:20
-  },
-  {
-    icon:"🧨", tag:"UNHINGED THOUGHTS", type:"Think",
-    title:"Your villain origin story",
-    desc:"Every great villain had a moment. Yours is probably embarrassingly minor.",
-    prompt:"Choose the event that would turn you into the most unnecessarily dramatic villain.",
-    choices:[
-      ["Someone replied 'K' after your paragraph.","The origin of a thousand-word monologue."],
-      ["Your food order arrives without the sauce.","A villain with very specific demands."],
-      ["Someone says 'calm down' while you're calm.","The final straw."],
-      ["Your charger works only at one impossible angle.","No redemption arc can fix this."]
-    ]
-  },
-  {
-    icon:"🎯", tag:"BRAIN BATTLE", type:"Puzzle",
-    title:"The classic logic trap",
-    desc:"Read carefully. Your brain may try to speedrun this one.",
-    prompt:"A bat and a ball cost ₹110 in total. The bat costs ₹100 more than the ball. How much does the ball cost?",
-    choices:[
-      ["₹10","Tempting, but check the difference."],
-      ["₹5","Correct. Bat ₹105 + ball ₹5 = ₹110."],
-      ["₹15","That would total ₹130."],
-      ["₹1","The total would be ₹103."]
-    ],
-    answer:1,
-    explain:"₹5. The bat costs ₹105, which is ₹100 more than the ball. Together they cost ₹110."
-  },
-  {
-    icon:"🫡", tag:"RIDICULOUS MISSION", type:"Mission",
-    title:"The acceptance speech",
-    desc:"You've just won a prestigious award for an achievement nobody should be proud of.",
-    prompt:"Deliver a 15-second acceptance speech in your head or out loud. Choose your award.",
-    choices:[
-      ["Most tabs open with no clear purpose.","A historic achievement in digital hoarding."],
-      ["Best performance in pretending to understand.","A standing ovation from confused colleagues."],
-      ["Lifetime achievement in saying 'tomorrow'.","Consistency is a skill."],
-      ["Outstanding contribution to overthinking.","The jury is still thinking about it."]
-    ],
-    timer:15
-  },
-  {
-    icon:"👀", tag:"QUESTIONABLE DECISIONS", type:"Think",
-    title:"Would you rather?",
-    desc:"There is no correct answer. Only information you may regret revealing to yourself.",
-    prompt:"Pick your permanent, mildly cursed lifestyle.",
-    choices:[
-      ["Every thought appears as a subtitle above your head.","Privacy has left the chat."],
-      ["Every lie triggers a tiny party horn sound.","Honesty becomes very loud."],
-      ["You can pause time, but not your own body clock.","Technically useful. Existentially alarming."],
-      ["You can see the future, but only for minor inconveniences.","The weather forecast of doom."]
-    ]
-  },
-  {
-    icon:"🧩", tag:"BRAIN BATTLE", type:"Puzzle",
-    title:"The word trap",
-    desc:"Don't let your brain add extra rules that aren't there.",
-    prompt:"How many months have 28 days?",
-    choices:[
-      ["1","February gets all the attention."],
-      ["2","Leap years are irrelevant here."],
-      ["6","A very confident guess."],
-      ["12","Every month has at least 28 days."]
-    ],
-    answer:3,
-    explain:"All 12 months have at least 28 days. The wording is the trick."
-  },
-  {
-    icon:"📉", tag:"ABSURD LOGIC", type:"Mission",
-    title:"Defend the indefensible",
-    desc:"You have been appointed Chief Executive Officer of a truly terrible idea.",
-    prompt:"Choose a policy and justify it like you're presenting to investors.",
-    choices:[
-      ["All meetings must be conducted in rhyme.","Quarterly results are looking sublime."],
-      ["Passwords must be shouted at the screen.","Security has never been this theatrical."],
-      ["All emails must end with a plot twist.","Regards... or are they?"],
-      ["Office chairs replaced by exercise balls.","Productivity is now a contact sport."]
-    ],
-    timer:20
-  }
+const questions = [
+ {c:"PICK ONE",q:"Someone you like texts you. Your first move?",a:["Reply instantly","Wait a little","Show a friend first","Act totally normal"]},
+ {c:"RANDOM",q:"What annoys you the fastest?",a:["Dry replies","Being interrupted","People who are always late","Being misunderstood"]},
+ {c:"GUESS ME",q:"What would I spend extra money on?",a:["Food","Clothes or skincare","A trip","Something completely unnecessary"]},
+ {c:"PICK ONE",q:"Which matters more to you?",a:["Remembering small details","Big surprises","Making me laugh","Being there when it matters"]},
+ {c:"BE HONEST",q:"When you're upset, what do you usually do?",a:["Talk about it","Go quiet","Make jokes","Distract myself"]},
+ {c:"RANDOM",q:"Your perfect free evening?",a:["Going out somewhere","Staying home with food","A long conversation","Doing absolutely nothing"]},
+ {c:"GUESS ME",q:"What is my most likely bad habit?",a:["Overthinking","Replying late","Spending too much","Pretending nothing is wrong"]},
+ {c:"PICK ONE",q:"Someone remembers a tiny thing you said months ago. You think...",a:["That's really sweet","They have a great memory","Wait, why do they remember that?","That's normal"]},
+ {c:"WOULD YOU RATHER",q:"Which would you choose?",a:["Always know when someone lies","Know what people really think","Never overthink again","Always make the right decision"]},
+ {c:"BE HONEST",q:"If a friend suddenly gets quiet, you usually...",a:["Ask what's wrong","Give them space","Try to make them laugh","Wait and see"]},
+ {c:"GUESS ME",q:"What makes me laugh the most?",a:["Sarcastic jokes","Silly nonsense","Dark humour","Funny stories about real life"]},
+ {c:"PICK ONE",q:"What makes someone instantly more interesting?",a:["A good sense of humour","Confidence","Kindness","A really interesting mind"]},
+ {c:"RANDOM",q:"You accidentally wave at a stranger. You...",a:["Commit and keep waving","Pretend to fix my hair","Look away immediately","Laugh at myself"]},
+ {c:"WOULD YOU RATHER",q:"Which is harder?",a:["Saying how you feel","Admitting you're wrong","Trusting someone new","Asking for help"]},
+ {c:"LAST ONE",q:"Which sounds most like you?",a:["I notice more than I say","I say exactly what I think","I hide things with humour","I need time to understand my own feelings"]}
 ];
 
-const $ = id => document.getElementById(id);
-let score = 0;
-let streak = 0;
-let completed = 0;
-let round = 0;
-let current = null;
-let selected = null;
-let clock = null;
-let timeLeft = 0;
-let timeLimit = 0;
-let finished = false;
-let lastIndex = -1;
+const $=id=>document.getElementById(id);
+const sections=["home","setup","play","share","done","results"];
+let ownerName="",ownerAnswers=[],guesses=[],myAnswers=[],step=0,phase="",selected=-1,ownerData=null,resultData=null;
 
-function shufflePick() {
-  if (challenges.length < 2) return 0;
-  let index;
-  do {
-    index = Math.floor(Math.random() * challenges.length);
-  } while (index === lastIndex);
-  lastIndex = index;
-  return index;
+function show(id){
+ sections.forEach(s=>$(s).classList.toggle("hidden",s!==id));
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-
-function stopTimer() {
-  if (clock) clearInterval(clock);
-  clock = null;
+function encode(obj){
+ const bytes=new TextEncoder().encode(JSON.stringify(obj));
+ let binary="";
+ bytes.forEach(b=>binary+=String.fromCharCode(b));
+ return btoa(binary).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
 }
-
-function showToast(message) {
-  const toast = $("toast");
-  toast.textContent = message;
-  toast.classList.remove("hidden");
-  setTimeout(() => toast.classList.add("hidden"), 2300);
+function decode(str){
+ str=str.trim().replace(/\s/g,"").replace(/-/g,"+").replace(/_/g,"/");
+ str+="=".repeat((4-str.length%4)%4);
+ const binary=atob(str);
+ const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+ return JSON.parse(new TextDecoder().decode(bytes));
 }
-
-function startGame() {
-  $("startBtn").classList.add("hidden");
-  loadChallenge();
+function validAnswers(arr){
+ return Array.isArray(arr)&&arr.length===questions.length&&arr.every((n,i)=>Number.isInteger(n)&&n>=0&&n<questions[i].a.length);
 }
-
-function loadChallenge() {
-  stopTimer();
-  current = challenges[shufflePick()];
-  round++;
-  selected = null;
-  finished = false;
-  timeLeft = current.timer || 0;
-  timeLimit = current.timer || 0;
-
-  $("tag").textContent = current.tag;
-  $("round").textContent = "ROUND " + String(round).padStart(2, "0");
-  $("challengeIcon").textContent = current.icon;
-  $("title").textContent = current.title;
-  $("description").textContent = current.desc;
-  $("promptBox").innerHTML = "<strong>Your mission</strong>" + current.prompt;
-
-  $("choices").innerHTML = "";
-  $("choices").classList.add("hidden");
-  $("feedback").style.display = "none";
-  $("feedback").textContent = "";
-  $("timerArea").classList.add("hidden");
-  $("completeBtn").classList.add("hidden");
-  $("completeBtn").disabled = true;
-  $("nextBtn").classList.add("hidden");
-  $("startBtn").classList.add("hidden");
-
-  if (current.choices) {
-    $("choices").classList.remove("hidden");
-    current.choices.forEach((item, index) => {
-      const button = document.createElement("button");
-      button.className = "choice";
-      button.textContent = item[0];
-      button.addEventListener("click", () => selectChoice(index));
-      $("choices").appendChild(button);
-    });
-  }
-
-  if (timeLimit) {
-    $("timerArea").classList.remove("hidden");
-    $("timer").textContent = timeLeft + "s";
-    $("timerFill").style.width = "100%";
-  }
-
-  $("progressText").textContent = completed + " challenges completed";
-  $("progressBar").style.width = (completed % 10) * 10 + "%";
-
-  if (!current.choices) {
-    $("completeBtn").disabled = false;
-  }
-
-  if (timeLimit) {
-    clock = setInterval(() => {
-      timeLeft--;
-      $("timer").textContent = Math.max(0, timeLeft) + "s";
-      $("timerFill").style.width =
-        Math.max(0, timeLeft / timeLimit * 100) + "%";
-
-      if (timeLeft <= 0) {
-        stopTimer();
-        $("timer").textContent = "TIME!";
-        $("completeBtn").disabled = false;
-        showToast("Time's up. Wrap up your mission!");
-      }
-    }, 1000);
-  }
+function startOwner(){
+ ownerName=$("ownerName").value.trim();
+ if(!ownerName){alert("Enter your nickname first!");return}
+ ownerAnswers=[];step=0;phase="owner";
+ renderQuestion();show("play");
 }
-
-function selectChoice(index) {
-  if (finished || selected !== null) return;
-  selected = index;
-  const buttons = $("choices").querySelectorAll("button");
-  buttons.forEach((button, i) => {
-    button.disabled = true;
-    if (i === index) button.classList.add("selected");
+function startJoin(){
+ const raw=prompt("Paste the code your friend sent you:");
+ if(!raw)return;
+ try{
+  const data=decode(raw);
+  if(data.v!==1||!validAnswers(data.a)||typeof data.n!=="string")throw Error();
+  ownerData=data;
+  guesses=[];myAnswers=[];step=0;phase="guess";
+  renderQuestion();show("play");
+ }catch(e){
+  $("homeError").textContent="That code doesn't look right. Ask your friend to copy the full code.";
+ }
+}
+function renderQuestion(){
+ selected=-1;
+ const q=questions[step];
+ $("phase").textContent=phase==="owner"?"YOUR ANSWER":phase==="guess"?"GUESS THEIR ANSWER":"YOUR OWN ANSWER";
+ $("counter").textContent=(step+1)+" / "+questions.length;
+ $("fill").style.width=((step)/questions.length*100)+"%";
+ $("category").textContent=q.c;
+ $("question").textContent=q.q;
+ $("instruction").textContent=phase==="owner"
+ ?"Pick the answer that is most like you."
+ :phase==="guess"
+ ?"What do you think "+ownerData.n+" would choose?"
+ :"Now choose the answer that is most like YOU.";
+ $("options").replaceChildren();
+ q.a.forEach((answer,i)=>{
+  const b=document.createElement("button");
+  b.className="option";b.textContent=answer;
+  b.onclick=()=>{
+   selected=i;
+   $("options").querySelectorAll("button").forEach(x=>x.classList.remove("chosen"));
+   b.classList.add("chosen");
+   $("next").disabled=false;
+  };
+  $("options").appendChild(b);
+ });
+ $("next").disabled=true;
+ $("next").textContent=step===questions.length-1?"FINISH →":"NEXT →";
+}
+$("next").onclick=()=>{
+ if(selected<0)return;
+ if(phase==="owner")ownerAnswers.push(selected);
+ if(phase==="guess")guesses.push(selected);
+ if(phase==="self")myAnswers.push(selected);
+ step++;
+ if(step<questions.length){renderQuestion();return}
+ if(phase==="owner"){
+  $("shareCode").value=encode({v:1,n:ownerName,a:ownerAnswers});
+  show("share");
+ }else if(phase==="guess"){
+  phase="self";step=0;
+  alert("Guesses locked! Now answer for yourself. Your friend's answers stay hidden until the reveal.");
+  renderQuestion();
+ }else{
+  $("doneCode").value=encode({v:1,n:ownerData.n,a:ownerData.a,gn:prompt("Your nickname?")||"Friend",g:guesses,b:myAnswers});
+  show("done");
+ }
+};
+$("make").onclick=()=>show("setup");
+$("join").onclick=startJoin;
+$("beginOwner").onclick=startOwner;
+$("back1").onclick=()=>show("home");
+$("homeAgain").onclick=()=>show("home");
+$("homeDone").onclick=()=>show("home");
+$("homeResults").onclick=()=>show("home");
+$("copyShare").onclick=()=>copyText("shareCode");
+$("copyDone").onclick=()=>copyText("doneCode");
+$("check").onclick=()=>{
+ try{
+  const d=decode($("resultCode").value);
+  if(d.v!==1||!validAnswers(d.a)||!validAnswers(d.g)||!validAnswers(d.b)||typeof d.gn!=="string"||typeof d.n!=="string")throw Error();
+  resultData=d;renderResults();show("results");
+ }catch(e){$("homeError").textContent="Invalid results code. Paste the complete code they sent you."}
+};
+function copyText(id){
+ $(id).select();
+ try{
+  document.execCommand("copy");
+  alert("Copied! Send it in your chat.");
+ }catch(e){alert("Select the text and copy it manually.")}
+}
+function renderResults(){
+ const d=resultData;
+ let matches=0;
+ d.a.forEach((a,i)=>{if(a===d.g[i])matches++});
+ $("resultTitle").textContent=d.gn+" guessed your answers!";
+ $("summary").textContent=matches+" out of "+questions.length+" guesses matched. Now see what each of you picked!";
+ $("details").replaceChildren();
+ questions.forEach((q,i)=>{
+  const box=document.createElement("div");box.className="box";
+  const title=document.createElement("strong");title.textContent=(i+1)+". "+q.q;
+  box.appendChild(title);
+  const lines=[
+   "Your answer: "+q.a[d.a[i]],
+   d.gn+"'s guess: "+q.a[d.g[i]]+(d.g[i]===d.a[i]?" ✓ MATCH!":""),
+   d.gn+"'s own answer: "+q.a[d.b[i]]
+  ];
+  lines.forEach((t,j)=>{
+   const p=document.createElement("p");
+   p.style.margin="8px 0";
+   p.textContent=t;
+   if(j===1)p.className=d.g[i]===d.a[i]?"match":"miss";
+   box.appendChild(p);
   });
-
-  if (typeof current.answer === "number") {
-    const correct = index === current.answer;
-    if (correct) {
-      $("feedback").textContent = "✓ " + current.explain;
-      $("feedback").style.color = "var(--lime)";
-    } else {
-      $("feedback").textContent = "Not quite. " + current.explain;
-      $("feedback").style.color = "#ffadad";
-    }
-    $("feedback").style.display = "block";
-  } else {
-    $("feedback").textContent = current.choices[index][1];
-    $("feedback").style.color = "var(--lime)";
-    $("feedback").style.display = "block";
-  }
-
-  $("completeBtn").disabled = false;
+  $("details").appendChild(box);
+ });
+ $("copySummary").onclick=()=>{
+  const text=questions.map((q,i)=>
+   q.q+"\nYou: "+q.a[d.a[i]]+"\n"+d.gn+" guessed: "+q.a[d.g[i]]+"\n"+d.gn+" chose: "+q.a[d.b[i]]
+  ).join("\n\n");
+  const area=document.createElement("textarea");
+  area.value=text;document.body.appendChild(area);area.select();
+  document.execCommand("copy");area.remove();alert("Results copied!");
+ };
 }
-
-function completeChallenge() {
-  if (finished || $("completeBtn").disabled) return;
-  finished = true;
-  stopTimer();
-
-  const isCorrect =
-    typeof current.answer === "number" && selected === current.answer;
-  const points = current.answer !== undefined
-    ? (isCorrect ? 20 : 5)
-    : 10;
-
-  score += points;
-  streak++;
-  completed++;
-
-  $("score").textContent = score;
-  $("streak").textContent = streak + " 🔥";
-  $("completed").textContent = completed;
-  $("progressText").textContent = completed + " challenges completed";
-  $("progressBar").style.width = (completed % 10) * 10 + "%";
-
-  $("completeBtn").classList.add("hidden");
-  $("nextBtn").classList.remove("hidden");
-  $("nextBtn").textContent = "NEXT ROUND →";
-
-  if ($("choices").children.length) {
-    $("choices").querySelectorAll("button").forEach(b => b.disabled = true);
-  }
-
-  showToast("+" + points + " points. Your questionable legacy grows.");
-}
-
-$("startBtn").addEventListener("click", startGame);
-$("completeBtn").addEventListener("click", completeChallenge);
-$("nextBtn").addEventListener("click", loadChallenge);
 </script>
 </body>
 </html>
